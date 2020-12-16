@@ -18,7 +18,7 @@ export class DeleteButtonComponent {
     this.canDelete = true;
   }
 
-  deleteBoard() {
+  deletePack() {
     this.delete.emit(true);
     this.canDelete = false;
   }

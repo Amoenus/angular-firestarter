@@ -2,20 +2,20 @@ import { Component, Input } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { TaskDialogComponent } from '../dialogs/task-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { BoardService } from '../board.service';
-import { Task } from '../board.model';
+import { PackService } from '../pack.service';
+import { Task } from '../pack.model';
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  selector: 'app-pack',
+  templateUrl: './pack.component.html',
+  styleUrls: ['./pack.component.scss']
 })
-export class BoardComponent {
-  @Input() board;
+export class PackComponent {
+  @Input() pack;
 
   taskDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.board.tasks, event.previousIndex, event.currentIndex);
-    this.boardService.updateTasks(this.board.id, this.board.tasks);
+    moveItemInArray(this.pack.tasks, event.previousIndex, event.currentIndex);
+    this.packService.updateTasks(this.pack.id, this.pack.tasks);
   }
 
   openDialog(task?: Task, idx?: number): void {
@@ -23,29 +23,29 @@ export class BoardComponent {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '500px',
       data: task
-        ? { task: { ...task }, isNew: false, boardId: this.board.id, idx }
+        ? { task: { ...task }, isNew: false, packId: this.pack.id, idx }
         : { task: newTask, isNew: true }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.isNew) {
-          this.boardService.updateTasks(this.board.id, [
-            ...this.board.tasks,
+          this.packService.updateTasks(this.pack.id, [
+            ...this.pack.tasks,
             result.task
           ]);
         } else {
-          const update = this.board.tasks;
+          const update = this.pack.tasks;
           update.splice(result.idx, 1, result.task);
-          this.boardService.updateTasks(this.board.id, this.board.tasks);
+          this.packService.updateTasks(this.pack.id, this.pack.tasks);
         }
       }
     });
   }
 
   handleDelete() {
-    this.boardService.deleteBoard(this.board.id);
+    this.packService.deletePack(this.pack.id);
   }
 
-  constructor(private boardService: BoardService, private dialog: MatDialog) {}
+  constructor(private packService: PackService, private dialog: MatDialog) {}
 }

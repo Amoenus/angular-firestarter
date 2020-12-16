@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BoardService } from '../board.service';
+import { PackService } from '../pack.service';
 
 @Component({
   selector: 'app-task-dialog',
@@ -44,7 +44,7 @@ export class TaskDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<TaskDialogComponent>,
-    private boardService: BoardService,
+    private packService: PackService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -53,7 +53,7 @@ export class TaskDialogComponent {
   }
 
   handleTaskDelete() {
-    this.boardService.removeTask(this.data.boardId, this.data.task);
+    this.packService.removeTask(this.data.packId, this.data.task);
     this.dialogRef.close();
   }
 }

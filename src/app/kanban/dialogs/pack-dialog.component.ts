@@ -2,11 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-board-dialog',
+  selector: 'app-pack-dialog',
   template: `
-    <h1 mat-dialog-title>Board</h1>
+    <h1 mat-dialog-title>Pack</h1>
     <div mat-dialog-content>
-    <p>What shall we call this board?</p>
+    <p>What shall we call this pack?</p>
       <mat-form-field>
         <input placeholder="title" matInput [(ngModel)]="data.title" />
       </mat-form-field>
@@ -19,9 +19,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     </div>
   `
 })
-export class BoardDialogComponent {
+export class PackDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<BoardDialogComponent>,
+    public dialogRef: MatDialogRef<PackDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 

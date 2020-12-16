@@ -2,22 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { KanbanRoutingModule } from './kanban-routing.module';
-import { BoardsListComponent } from './boards-list/boards-list.component';
+import { PacksListComponent } from './packs-list/packs-list.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BoardComponent } from './board/board.component';
+import { PackComponent } from './pack/pack.component';
 import { FormsModule } from '@angular/forms';
-import { BoardDialogComponent } from './dialogs/board-dialog.component';
+import { PackDialogComponent } from './dialogs/pack-dialog.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TaskDialogComponent } from './dialogs/task-dialog.component';
 
 @NgModule({
   declarations: [
-    BoardsListComponent,
-    BoardComponent,
-    BoardDialogComponent,
+    PacksListComponent,
+    PackComponent,
+    PackDialogComponent,
     TaskDialogComponent
   ],
   imports: [
@@ -30,6 +30,6 @@ import { TaskDialogComponent } from './dialogs/task-dialog.component';
     MatDialogModule,
     MatButtonToggleModule,
   ],
-  entryComponents: [BoardDialogComponent, TaskDialogComponent]
+  entryComponents: [PackDialogComponent, TaskDialogComponent]
 })
 export class KanbanModule {}

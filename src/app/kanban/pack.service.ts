@@ -3,20 +3,20 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { switchMap, map } from 'rxjs/operators';
-import { Board, Task } from './board.model';
+import { Pack, Task } from './pack.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BoardService {
+export class PackService {
   constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {}
 
   /**
-   * Creates a new board for the current user
+   * Creates a new pack for the current user
    */
-  async createBoard(data: Board) {
-    const user = await this.afAuth.auth.currentUser;
-    return this.db.collection('boards').add({
+  async createPack(data: Pack) {
+    const user = this.afAuth.auth.currentUser;
+    return this.db.collection('packs').add({
       ...data,
       uid: user.uid,
       tasks: [{ description: 'Hello!', label: 'yellow' }]
@@ -24,14 +24,14 @@ export class BoardService {
   }
 
   /**
-   * Get all boards owned by current user
+   * Get all packs owned by current user
    */
-  getUserBoards() {
+  getUserPacks() {
     return this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
           return this.db
-            .collection<Board>('boards', ref =>
+            .collection<Pack>('packs', ref =>
               ref.where('uid', '==', user.uid).orderBy('priority')
             )
             .valueChanges({ idField: 'id' });
@@ -39,48 +39,48 @@ export class BoardService {
           return [];
         }
       }),
-      // map(boards => boards.sort((a, b) => a.priority - b.priority))
+      // map(packs => packs.sort((a, b) => a.priority - b.priority))
     );
   }
 
   /**
-   * Run a batch write to change the priority of each board for sorting
+   * Run a batch write to change the priority of each pack for sorting
    */
-  sortBoards(boards: Board[]) {
+  sortPacks(packs: Pack[]) {
     const db = firebase.firestore();
     const batch = db.batch();
-    const refs = boards.map(b => db.collection('boards').doc(b.id));
+    const refs = packs.map(b => db.collection('packs').doc(b.id));
     refs.forEach((ref, idx) => batch.update(ref, { priority: idx }));
     batch.commit();
   }
 
   /**
-   * Delete board
+   * Delete pack
    */
-  deleteBoard(boardId: string) {
+  deletePack(packId: string) {
     return this.db
-      .collection('boards')
-      .doc(boardId)
+      .collection('packs')
+      .doc(packId)
       .delete();
   }
 
   /**
-   * Updates the tasks on board
+   * Updates the tasks on pack
    */
-  updateTasks(boardId: string, tasks: Task[]) {
+  updateTasks(packId: string, tasks: Task[]) {
     return this.db
-      .collection('boards')
-      .doc(boardId)
+      .collection('packs')
+      .doc(packId)
       .update({ tasks });
   }
 
   /**
-   * Remove a specifc task from the board
+   * Remove a specifc task from the pack
    */
-  removeTask(boardId: string, task: Task) {
+  removeTask(packId: string, task: Task) {
     return this.db
-      .collection('boards')
-      .doc(boardId)
+      .collection('packs')
+      .doc(packId)
       .update({
         tasks: firebase.firestore.FieldValue.arrayRemove(task)
       });

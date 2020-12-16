@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase:  {
-    apiKey: 'AIzaSyAKlEX5a8PQaadYNSrohqfl33O37Kjkv1Y',
-    authDomain: 'angular-voxer.firebaseapp.com',
-    databaseURL: 'https://angular-voxer.firebaseio.com',
-    projectId: 'angular-voxer',
-    storageBucket: 'angular-voxer.appspot.com',
-    messagingSenderId: '122050526979',
-    appId: '1:122050526979:web:529304dce5ffca7a'
+    apiKey: 'AIzaSyD1cy8eDTKB8Axg8WEVQCs2H8s9sx5NlZM',
+    authDomain: 'amoenus-firestarter.firebaseapp.com',
+    databaseURL: 'https://amoenus-firestarter.firebaseio.com',
+    projectId: 'amoenus-firestarter',
+    storageBucket: 'amoenus-firestarter.appspot.com',
+    messagingSenderId: '566860609189',
+    appId: '1:566860609189:web:127aaec9d73dcde6037f4c'
   }
 };
 

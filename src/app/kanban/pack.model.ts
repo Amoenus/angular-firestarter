@@ -1,4 +1,4 @@
-export interface Board {
+export interface Pack {
   id?: string;
   title?: string;
   priority?: number;
