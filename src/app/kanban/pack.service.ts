@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase';
 import { switchMap, map } from 'rxjs/operators';
 import { Pack, Task } from './pack.model';
 
@@ -15,10 +15,10 @@ export class PackService {
    * Creates a new pack for the current user
    */
   async createPack(data: Pack) {
-    const user = this.afAuth.auth.currentUser;
+    const user = this.afAuth.currentUser;
     return this.db.collection('packs').add({
       ...data,
-      uid: user.uid,
+      uid: (await user).uid,
       tasks: [{ description: 'Hello!', label: 'yellow' }]
     });
   }
