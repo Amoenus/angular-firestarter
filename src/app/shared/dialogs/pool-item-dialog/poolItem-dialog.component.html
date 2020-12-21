@@ -1,11 +1,4 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PackService } from '../pack.service';
 
-@Component({
-  selector: 'app-task-dialog',
-  styleUrls: ['./dialog.scss'],
-  template: `
     <h1 mat-dialog-title>Pool Item</h1>
     <div mat-dialog-content class="content">
       <mat-form-field>
@@ -18,7 +11,7 @@ import { PackService } from '../pack.service';
       <br />
       <mat-button-toggle-group
         #group="matButtonToggleGroup"
-        [(ngModel)]="data.task.label"
+        [(ngModel)]="data.poolItem.label"
       >
         <mat-button-toggle *ngFor="let opt of labelOptions" [value]="opt">
           <mat-icon [ngClass]="opt">{{
@@ -37,23 +30,3 @@ import { PackService } from '../pack.service';
         *ngIf="!data.isNew"
       ></app-delete-button>
     </div>
-  `
-})
-export class TaskDialogComponent {
-  labelOptions = ['purple', 'blue', 'green', 'yellow', 'red', 'gray'];
-
-  constructor(
-    public dialogRef: MatDialogRef<TaskDialogComponent>,
-    private packService: PackService,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  handleTaskDelete() {
-    this.packService.removeTask(this.data.packId, this.data.task);
-    this.dialogRef.close();
-  }
-}

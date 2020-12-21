@@ -14,12 +14,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ListItemComponent } from './list-item/list-item.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { PoolItemDialogComponent } from './dialogs/pool-item-dialog/poolItem-dialog.component';
 
-const components = [
-  ShellComponent, DeleteButtonComponent
-];
+const components = [ShellComponent, DeleteButtonComponent, ListItemComponent, PoolItemDialogComponent];
 
 const modules = [
+  FormsModule,
   CommonModule,
   RouterModule,
   MatToolbarModule,
@@ -33,19 +38,15 @@ const modules = [
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  DragDropModule,
+  MatDialogModule,
+  MatButtonToggleModule,
 ];
 
 @NgModule({
-  declarations: [
-    ...components
-  ],
-  imports: [
-    ...modules,
-  ],
-  exports: [
-    ...components,
-    ...modules
-  ],
+  declarations: [...components],
+  imports: [...modules],
+  exports: [...components, ...modules],
 })
 export class SharedModule {}

@@ -4,7 +4,7 @@
   class="packs"
   (cdkDropListDropped)="drop($event)"
 >
-  <app-pack cdkDrag *ngFor="let pack of packs" [pack]="pack">
+  <app-pack cdkDrag *ngFor="let pack of packs" [pack]="pack" [connectedTo]="packIds()">
     <mat-icon cdkDragHandle class="handle">drag_indicator</mat-icon>
   </app-pack>
 

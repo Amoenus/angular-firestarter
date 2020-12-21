@@ -12,13 +12,15 @@ import { FormsModule } from '@angular/forms';
 import { PackDialogComponent } from './dialogs/pack-dialog.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TaskDialogComponent } from './dialogs/task-dialog.component';
+import { PacksList2Component } from '../packs-list2-component/packs-list2-component.component';
 
 @NgModule({
   declarations: [
     PacksListComponent,
     PackComponent,
     PackDialogComponent,
-    TaskDialogComponent
+    TaskDialogComponent,
+    PacksList2Component
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,6 @@ import { TaskDialogComponent } from './dialogs/task-dialog.component';
     MatDialogModule,
     MatButtonToggleModule,
   ],
-  entryComponents: [PackDialogComponent, TaskDialogComponent]
+  entryComponents: [PackDialogComponent, PacksList2Component, TaskDialogComponent]
 })
 export class KanbanModule {}

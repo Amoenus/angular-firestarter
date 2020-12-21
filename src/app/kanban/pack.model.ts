@@ -1,11 +1,10 @@
+import { PoolItem } from './pool-item.model';
+
 export interface Pack {
   id?: string;
   title?: string;
   priority?: number;
-  tasks?: Task[];
+  tasks: PoolItem[];
 }
 
-export interface Task {
-  description?: string;
-  label?: 'purple' | 'blue' | 'green' | 'yellow' | 'red' | 'gray';
-}
+

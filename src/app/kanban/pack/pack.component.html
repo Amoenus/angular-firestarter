@@ -13,7 +13,10 @@
   <div
     class="tasks"
     cdkDropList
+    id = "pack.id"
+    [cdkDropListData] = "pack.tasks"
     cdkDropListOrientation="vertical"
+    cdkDropListConnectedTo="cHao6P7FcTq073KzZoHe"
     (cdkDropListDropped)="taskDrop($event)"
   >
     <div

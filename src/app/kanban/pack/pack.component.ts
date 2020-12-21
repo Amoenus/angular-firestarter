@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { TaskDialogComponent } from '../dialogs/task-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PackService } from '../pack.service';
-import { Task } from '../pack.model';
+import { Pack } from '../pack.model';
+import { PoolItem } from '../pool-item.model';
 
 @Component({
   selector: 'app-pack',
@@ -11,14 +12,26 @@ import { Task } from '../pack.model';
   styleUrls: ['./pack.component.scss']
 })
 export class PackComponent {
-  @Input() pack;
+  @Input() pack: Pack;
+  @Input() connectedTo = [];
 
-  taskDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.pack.tasks, event.previousIndex, event.currentIndex);
-    this.packService.updateTasks(this.pack.id, this.pack.tasks);
+  taskDrop(event: CdkDragDrop<PoolItem[]>) {
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(this.pack.tasks, event.previousIndex, event.currentIndex);
+      this.packService.updateTasks(this.pack.id, this.pack.tasks);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+
+      this.packService.updateTasks(this.pack.id, this.pack.tasks);
+      this.packService.updateTasks(event.container.connectedTo.toString(), event.previousContainer.data);
+    }
   }
 
-  openDialog(task?: Task, idx?: number): void {
+  openDialog(task?: PoolItem, idx?: number): void {
     const newTask = { label: 'purple' };
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '500px',

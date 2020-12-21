@@ -3,13 +3,14 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase';
 import { switchMap, map } from 'rxjs/operators';
-import { Pack, Task } from './pack.model';
+import { Pack } from './pack.model';
+import { PoolItem } from "./pool-item.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PackService {
-  constructor(private afAuth: AngularFireAuth, private db: AngularFirestore) {}
+  constructor(private readonly afAuth: AngularFireAuth, private readonly db: AngularFirestore) {}
 
   /**
    * Creates a new pack for the current user
@@ -67,7 +68,7 @@ export class PackService {
   /**
    * Updates the tasks on pack
    */
-  updateTasks(packId: string, tasks: Task[]) {
+  updateTasks(packId: string, tasks: PoolItem[]) {
     return this.db
       .collection('packs')
       .doc(packId)
@@ -77,7 +78,7 @@ export class PackService {
   /**
    * Remove a specifc task from the pack
    */
-  removeTask(packId: string, task: Task) {
+  removeTask(packId: string, task: PoolItem) {
     return this.db
       .collection('packs')
       .doc(packId)

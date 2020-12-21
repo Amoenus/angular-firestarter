@@ -29,6 +29,10 @@ export class PacksListComponent implements OnInit, OnDestroy {
     this.packService.sortPacks(this.packs);
   }
 
+  packIds() {
+    return this.packs.map(x => x.id);
+  }
+
   openNewPack(): void {
     const dialogRef = this.dialog.open(PackDialogComponent, {
       width: '400px',
@@ -39,7 +43,8 @@ export class PacksListComponent implements OnInit, OnDestroy {
       if (result) {
         this.packService.createPack({
           title: result,
-          priority: this.packs.length
+          priority: this.packs.length,
+          tasks: []
         });
       }
     });
