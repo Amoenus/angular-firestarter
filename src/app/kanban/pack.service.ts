@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase';
 import { switchMap, map } from 'rxjs/operators';
 import { Pack } from './pack.model';
-import { PoolItem } from "./pool-item.model";
+import { PoolItem } from './pool-item.model';
 
 @Injectable({
   providedIn: 'root'

@@ -25,6 +25,27 @@ export class PacksList2Component implements OnInit {
   }
 
   public ngOnInit() {
+    this.generateMockData();
+  }
+
+  public onDragDrop(event: CdkDragDrop<PoolItem>) {
+    event.container.element.nativeElement.classList.remove('active');
+    if (this.canBeDropped(event)) {
+      const movingItem: PoolItem = event.item.data;
+      event.container.data.poolItems.push(movingItem);
+      event.previousContainer.data.poolItems = event.previousContainer.data.poolItems.filter(
+        (child) => child.id !== movingItem.id
+      );
+    } else {
+      moveItemInArray(
+        event.container.data.poolItems,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+  }
+
+  private generateMockData() {
     this.parentItem.poolItems.push({
       id: uuid.v4(),
       description: 'test1',
@@ -32,7 +53,7 @@ export class PacksList2Component implements OnInit {
       rate: 0.25,
       poolItems: [
         { id: uuid.v4(), description: 'subItem1', label: 'purple', poolItems: [], rate: 0.25 },
-        { id: uuid.v4(), description: 'subItem2', label: 'yellow', poolItems: [], rate: 0.25, pityRate: 0.12},
+        { id: uuid.v4(), description: 'subItem2', label: 'yellow', poolItems: [], rate: 0.25, pityRate: 0.12 },
         { id: uuid.v4(), description: 'subItem3', label: 'green', poolItems: [], rate: 0.25 },
       ],
     });
@@ -54,23 +75,7 @@ export class PacksList2Component implements OnInit {
       ],
     });
     this.parentItem.poolItems.push({ id: uuid.v4(), description: 'test3', label: 'yellow', poolItems: [], rate: 0.25, pityRate: 0.12 });
-  }
 
-  public onDragDrop(event: CdkDragDrop<PoolItem>) {
-    event.container.element.nativeElement.classList.remove('active');
-    if (this.canBeDropped(event)) {
-      const movingItem: PoolItem = event.item.data;
-      event.container.data.poolItems.push(movingItem);
-      event.previousContainer.data.poolItems = event.previousContainer.data.poolItems.filter(
-        (child) => child.id !== movingItem.id
-      );
-    } else {
-      moveItemInArray(
-        event.container.data.poolItems,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
   }
 
   private getIdsRecursive(item: PoolItem): string[] {
