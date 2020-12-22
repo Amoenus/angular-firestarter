@@ -23,7 +23,7 @@ Firestarter is an Angular PWA powered by Firebase.
 - OAuth and Email/Password Signup with Firebase
 - Drag & drop Kanban demo with Firestore
 - Angular Universal SSR with Nest.js deployed to Google Cloud Run
-- Optional SSR Prerendering Script
+- Optional SSR Pre-rendering Script
 
 ## Usage
 

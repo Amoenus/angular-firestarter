@@ -36,8 +36,8 @@ export class PackComponent {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '500px',
       data: task
-        ? { task: { ...task }, isNew: false, packId: this.pack.id, idx }
-        : { task: newTask, isNew: true }
+        ? { poolItem: { ...task }, isNew: false, packId: this.pack.id, idx }
+        : { poolItem: newTask, isNew: true }
     });
 
     dialogRef.afterClosed().subscribe(result => {

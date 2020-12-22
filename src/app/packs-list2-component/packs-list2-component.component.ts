@@ -14,7 +14,6 @@ import * as uuid from 'uuid';
   styleUrls: ['./packs-list2-component.component.scss'],
 })
 export class PacksList2Component implements OnInit {
-  public parentItem: PoolItem;
   public get connectedDropListsIds(): string[] {
     // We reverse ids here to respect items nesting hierarchy
     return this.getIdsRecursive(this.parentItem).reverse();
@@ -22,6 +21,13 @@ export class PacksList2Component implements OnInit {
 
   constructor() {
     this.parentItem = { id: uuid.v4(), description: 'parent-item', label: 'purple', poolItems: [], rate: 0.25 };
+  }
+  public parentItem: PoolItem;
+
+  private static isNotSelfDrop(
+    event: CdkDragDrop<PoolItem> | CdkDragEnter<PoolItem> | CdkDragExit<PoolItem>
+  ): boolean {
+    return event.container.data.id !== event.item.data.uId;
   }
 
   public ngOnInit() {
@@ -91,15 +97,9 @@ export class PacksList2Component implements OnInit {
 
     return (
       event.previousContainer.id !== event.container.id &&
-      this.isNotSelfDrop(event) &&
+      PacksList2Component.isNotSelfDrop(event) &&
       !this.hasChild(movingItem, event.container.data)
     );
-  }
-
-  private isNotSelfDrop(
-    event: CdkDragDrop<PoolItem> | CdkDragEnter<PoolItem> | CdkDragExit<PoolItem>
-  ): boolean {
-    return event.container.data.id !== event.item.data.uId;
   }
 
   private hasChild(parentItem: PoolItem, childItem: PoolItem): boolean {

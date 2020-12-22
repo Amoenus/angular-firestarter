@@ -40,13 +40,13 @@ export class ListItemComponent {
     this.itemDrop.emit(event);
   }
 
-  openDialog(task?: PoolItem, idx?: number): void {
+  openDialog(poolItem?: PoolItem, idx?: number): void {
     const newTask = { label: 'purple' };
     const dialogRef = this.dialog.open(PoolItemDialogComponent, {
       width: '500px',
-      data: task
-        ? { task: { ...task }, isNew: false, idx }
-        : { task: newTask, isNew: true }
+      data: poolItem
+        ? { poolItem: { ...poolItem }, isNew: false, idx }
+        : { poolItem: newTask, isNew: true }
     });
 
     dialogRef.afterClosed().subscribe((result) => {

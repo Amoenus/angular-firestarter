@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SeoService } from 'src/app/services/seo.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { tap } from 'rxjs/operators';
 import { CustomerDataService } from '../customer-data.service';
 
 @Component({
